@@ -1,0 +1,50 @@
+name: release
+
+on:
+  workflow_call:
+    inputs:
+      nuget_source:
+        required: false
+        type: string
+        default: 'https://api.nuget.org/v3/index.json'
+      environment:
+        required: true
+        type: string
+    secrets:
+      nuget_api_key:
+        required: true
+    outputs:
+      version:
+        description: 'The created version'
+        value: ${{ jobs.release.outputs.version }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    outputs:
+      version: ${{ steps.release-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v3.2.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: sudo apt update && sudo apt -y install zipmerge # zipmerge is used to merge the multi target nupkg
+      - run: |
+          npm i \
+          semantic-release@21.0.2 \
+          conventional-changelog-conventionalcommits@5.0.0 \
+          @semantic-release/exec@6.0.3 \
+          @semantic-release/commit-analyzer@9.0.2 \
+          @semantic-release/release-notes-generator@10.0.3 \
+          @semantic-release/github@8.0.7
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_SOURCE: ${{ inputs.nuget_source }}
+          NUGET_API_KEY: ${{ secrets.nuget_api_key }}
+      - id: release-version
+        run: echo "version=${{ env.RELEASE_VERSION }}" >> "$GITHUB_OUTPUT"

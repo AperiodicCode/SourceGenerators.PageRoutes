@@ -1,0 +1,10 @@
+<Project>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.0.3-dev</Version>
+    <Authors>AperiodicCode</Authors>
+  </PropertyGroup>
+
+</Project>

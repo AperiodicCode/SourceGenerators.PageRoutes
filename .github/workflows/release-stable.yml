@@ -1,0 +1,16 @@
+name: release-stable
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  release:
+    needs: test
+    uses: ./.github/workflows/release.yml
+    with:
+      environment: stable
+    secrets:
+      nuget_api_key: ${{ secrets.NUGET_API_TOKEN }}
