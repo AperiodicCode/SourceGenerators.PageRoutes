@@ -23,6 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3.2.0
+      - run: dotnet clean
       - run: dotnet build /p:TreatWarningsAsErrors=true
       - run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       - uses: codecov/codecov-action@v3
@@ -31,7 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt update && sudo apt -y install zipmerge # zipmerge is used to merge the multi target nupkg
       - uses: actions/setup-dotnet@v3.2.0
       - run: dotnet tool restore
       - run: RELEASE_VERSION="0.0.1-dev.$GITHUB_RUN_ID" ./build/package.sh
