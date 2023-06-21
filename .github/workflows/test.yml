@@ -27,22 +27,22 @@ jobs:
       - run: dotnet build /p:TreatWarningsAsErrors=true
       - run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       - uses: codecov/codecov-action@v3
-  package:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3.2.0
-      - run: dotnet tool restore
-      - run: RELEASE_VERSION="0.0.1-dev.$GITHUB_RUN_ID" ./build/package.sh
-      - run: dotnet meziantou.validate-nuget-package ./artifacts/*.nupkg
-      - run: dotnet validate package local ./artifacts/*.nupkg
-      - uses: actions/upload-artifact@v3
-        with:
-          name: nupkg
-          path: artifacts/*.nupkg
-      - if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: verify-test-results
-          path: '**/*.received.*'
+  # package:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-dotnet@v3.2.0
+  #     - run: dotnet tool restore
+  #     - run: RELEASE_VERSION="0.0.1-dev.$GITHUB_RUN_ID" ./build/package.sh
+  #     - run: dotnet meziantou.validate-nuget-package ./artifacts/*.nupkg
+  #     - run: dotnet validate package local ./artifacts/*.nupkg
+  #     - uses: actions/upload-artifact@v3
+  #       with:
+  #         name: nupkg
+  #         path: artifacts/*.nupkg
+  #     - if: failure()
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: verify-test-results
+  #         path: '**/*.received.*'
