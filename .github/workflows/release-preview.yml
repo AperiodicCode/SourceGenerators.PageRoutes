@@ -20,7 +20,7 @@ jobs:
     with:
       environment: next
     secrets:
-      nuget_api_key: ${{ secrets.NUGET_API_TOKEN }}
+      nuget_api_key: ${{ secrets.NUGET_API_KEY }}
 
   release-stable-update-branch:
     runs-on: ubuntu-latest

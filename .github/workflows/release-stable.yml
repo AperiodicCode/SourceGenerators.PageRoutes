@@ -13,4 +13,4 @@ jobs:
     with:
       environment: stable
     secrets:
-      nuget_api_key: ${{ secrets.NUGET_API_TOKEN }}
+      nuget_api_key: ${{ secrets.NUGET_API_KEY }}

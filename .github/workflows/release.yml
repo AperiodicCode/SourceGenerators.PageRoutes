@@ -32,7 +32,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: sudo apt update && sudo apt -y install zipmerge # zipmerge is used to merge the multi target nupkg
       - run: |
           npm i \
           semantic-release@21.0.2 \
