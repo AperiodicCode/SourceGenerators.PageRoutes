@@ -10,7 +10,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3.2.0
       - run: dotnet tool restore
       - run: dotnet csharpier --check .
@@ -21,7 +21,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3.2.0
       - run: dotnet clean
       - run: dotnet build /p:TreatWarningsAsErrors=true
@@ -31,7 +31,7 @@ jobs:
   #   needs: test
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v3
+  #     - uses: actions/checkout@v4
   #     - uses: actions/setup-dotnet@v3.2.0
   #     - run: dotnet tool restore
   #     - run: RELEASE_VERSION="0.0.1-dev.$GITHUB_RUN_ID" ./build/package.sh
