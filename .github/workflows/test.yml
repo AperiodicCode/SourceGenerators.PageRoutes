@@ -26,7 +26,7 @@ jobs:
       - run: dotnet clean
       - run: dotnet build /p:TreatWarningsAsErrors=true
       - run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
   # package:
   #   needs: test
   #   runs-on: ubuntu-latest
